@@ -1,3 +1,16 @@
+############ Manual additions ############
+
+# Secret settings such as access token
+secret_config.json
+
+# PyCharm BS
+.idea
+
+# Virtual Environment
+cosmic-env
+
+############ Default Python Project ############
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -37,7 +50,7 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Unit test / coverage reports
+# Unit alien_scrape.txt / coverage reports
 htmlcov/
 .tox/
 .nox/
