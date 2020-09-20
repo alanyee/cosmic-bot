@@ -18,8 +18,11 @@ async def alien(ctx, *args):
     if alien_name in alien_dict:
         await ctx.send(alien_dict[alien_name])
     else:
-        await ctx.send("Could not find alien named {alien_name}")
+        await ctx.send("Could not find alien named {alien_name}".format(
+            alien_name=alien_name))
+
 
 with open('./secret_config.json', 'r') as f:
     data = json.load(f)
+
 bot.run(data["token"])
