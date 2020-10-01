@@ -1,9 +1,12 @@
-from discord.ext import commands
 import json
+import random
+
+from discord.ext import commands
 
 aliens = open("alien_scrape.txt", 'r').read().split('\n\n\n')
 
 alien_dict = {}
+colors = ("Pink", "White", "Green", "Yellow", "Purple", "Red", "Blue", "Orange")
 
 for alien in aliens:
     (key, _) = alien.split('[')
@@ -20,6 +23,13 @@ async def alien(ctx, *args):
     else:
         await ctx.send("Could not find alien named {alien_name}".format(
             alien_name=alien_name))
+
+@bot.command()
+async def color(ctx, *args):
+    if len(args) > 8:
+        await ctx.send("Having {len(args)} players is above the 8 player maximum")
+    else:
+        await ctx.send(", ".join(map(str, zip(args, random.sample(colors, len(args))))))
 
 
 with open('./secret_config.json', 'r') as f:
