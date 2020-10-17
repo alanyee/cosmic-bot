@@ -27,7 +27,7 @@ async def alien(ctx, *args):
 @bot.command()
 async def color(ctx, *args):
     if len(args) > 8:
-        await ctx.send("Having {len(args)} players is above the 8 player maximum")
+        await ctx.send(f"Having {len(args)} players is above the 8 player maximum")
     else:
         await ctx.send(", ".join(map(str, zip(args, random.sample(colors, len(args))))))
 
