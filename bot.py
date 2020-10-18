@@ -37,7 +37,10 @@ async def color(ctx, *args):
 @bot.command()
 async def colors(ctx):
     players = [member.nick if member.nick is not None else member.name for voice_channel in ctx.guild.voice_channels for member in voice_channel.members]
-    await ctx.send(", ".join(map(str, zip(players, random.sample(COLORS, len(players))))))
+    try:
+        await ctx.send(", ".join(map(str, zip(players, random.sample(COLORS, len(players))))))
+    except ValueError:
+        await ctx.send(f"Having {len(players)} players is above the 8 player maximum")
 
 with open('./secret_config.json', 'r') as f:
     data = json.load(f)
