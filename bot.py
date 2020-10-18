@@ -1,18 +1,21 @@
 import json
 import random
 
+import discord
 from discord.ext import commands
 
 aliens = open("alien_scrape.txt", 'r').read().split('\n\n\n')
 
 alien_dict = {}
-colors = ("Pink", "White", "Green", "Yellow", "Purple", "Red", "Blue", "Orange")
+COLORS = frozenset(("Pink", "White", "Green", "Yellow", "Purple", "Red", "Blue", "Orange"))
 
 for alien in aliens:
     (key, _) = alien.split('[')
     alien_dict[key.strip().lower()] = alien
 
-bot = commands.Bot(command_prefix='!')
+intents = discord.Intents.default()
+intents.members = True
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 
 @bot.command()
@@ -29,8 +32,12 @@ async def color(ctx, *args):
     if len(args) > 8:
         await ctx.send(f"Having {len(args)} players is above the 8 player maximum")
     else:
-        await ctx.send(", ".join(map(str, zip(args, random.sample(colors, len(args))))))
+        await ctx.send(", ".join(map(str, zip(args, random.sample(COLORS, len(args))))))
 
+@bot.command()
+async def colors(ctx):
+    players = [member.nick if member.nick is not None else member.name for voice_channel in ctx.guild.voice_channels for member in voice_channel.members]
+    await ctx.send(", ".join(map(str, zip(players, random.sample(COLORS, len(players))))))
 
 with open('./secret_config.json', 'r') as f:
     data = json.load(f)
