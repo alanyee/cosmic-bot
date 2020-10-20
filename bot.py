@@ -32,7 +32,7 @@ async def color(ctx, *args):
     if 3 <= len(args) <= 8:
         await ctx.send(", ".join(map(str, zip(args, random.sample(COLORS, len(args))))))
     else:
-        await ctx.send(f"Having {len(args)} players is within the 3-8 player ruleset")
+        await ctx.send(f"Having {len(args)} players is not within the 3-8 player ruleset")
 
 @bot.command()
 async def colors(ctx):
@@ -40,7 +40,7 @@ async def colors(ctx):
     if 3 <= len(players) <= 8:
         await ctx.send(", ".join(map(str, zip(players, random.sample(COLORS, len(players))))))
     else:
-        await ctx.send(f"Having {len(players)} players is within the 3-8 player ruleset")
+        await ctx.send(f"Having {len(players)} players is not within the 3-8 player ruleset")
 
 
 with open('./secret_config.json', 'r') as f:
