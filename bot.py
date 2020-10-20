@@ -29,18 +29,19 @@ async def alien(ctx, *args):
 
 @bot.command()
 async def color(ctx, *args):
-    if len(args) > 8:
-        await ctx.send(f"Having {len(args)} players is above the 8 player maximum")
-    else:
+    if 3 <= len(args) <= 8:
         await ctx.send(", ".join(map(str, zip(args, random.sample(COLORS, len(args))))))
+    else:
+        await ctx.send(f"Having {len(args)} players is within the 3-8 player ruleset")
 
 @bot.command()
 async def colors(ctx):
     players = [member.nick if member.nick is not None else member.name for voice_channel in ctx.guild.voice_channels for member in voice_channel.members]
-    try:
+    if 3 <= len(players) <= 8:
         await ctx.send(", ".join(map(str, zip(players, random.sample(COLORS, len(players))))))
-    except ValueError:
-        await ctx.send(f"Having {len(players)} players is above the 8 player maximum")
+    else:
+        await ctx.send(f"Having {len(players)} players is within the 3-8 player ruleset")
+
 
 with open('./secret_config.json', 'r') as f:
     data = json.load(f)
